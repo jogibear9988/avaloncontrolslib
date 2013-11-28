@@ -1,0 +1,76 @@
+﻿<Window x:Class="TestApplication.HierarchalListBoxTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="http://schemas.AvalonControls/AvalonControlsLibrary/Controls"
+    Title="HierarchalListBoxTest" Height="400" Width="600"
+    xmlns:current="clr-namespace:TestApplication">
+    <DockPanel LastChildFill="True">
+
+        <TextBlock DockPanel.Dock="Top">
+            <current:BrowserLink NavigateUri="http://marlongrech.wordpress.com/2007/10/01/virtualizing-treeview-aka-treelistbox-v20/">For more info click here</current:BrowserLink>
+        </TextBlock>
+       
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <!--<TextBlock Text="InsertAt" ToolTip="Insert at a specific index"/>
+            <TextBox Name="insertIndex" Text="1"/>
+            <Button Name="AddNewItems" Content="Add new Items" Click="AddNewItemsClick"/>
+            <Button Name="AddNewChildItems" Content="Add new child items for the new items" Click="AddNewChildItemsClick"/>
+            <Button Name="AddNewChildToChildItems" Content="Add nested child items" Click="AddNestedChildItems"/>
+            <Button Name="RemoveItem" Content="Remove Item" Click="RemoveItemClick"/>
+            <Button Name="RemoveItemChild" Content="Remove Item Child" Click="RemoveItemChildClick"/>-->
+                <TextBlock Text="No children"/>
+            <TextBox Name="noChildren" Text="1"/>
+            <TextBlock Text="No Levels"/>
+            <TextBox Name="noLevels" Text="1"/>
+            <Button Content="Add new Items" Click="ResetAndAddNew" ToolTip="This button will add x number of children for x number of levels for the tree view. where x is the value you enter in the texboxes provided" />
+        </StackPanel>
+
+            <TextBlock Text="Virtualizing Treeview" Grid.Row="0" Grid.Column="0"/>
+        
+        <TextBlock Text="Normal Treeview" Grid.Row="0" Grid.Column="1"/>
+        
+        <!--The hierarchal control-->
+        <local:TreeListBox Grid.Row="1" Grid.Column="0" Name="testList">
+            <local:TreeListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding MyProperty}"/>
+                </DataTemplate>
+            </local:TreeListBox.ItemTemplate>
+        </local:TreeListBox>
+        
+        <TreeView Grid.Row="1" Grid.Column="1" Name="testTree">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding MyProperty}"/>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+
+        <!--The count of visual element populated in the list-->
+        <StackPanel Grid.Column="0" Grid.Row="2">
+            <TextBlock Text="No Visual elements rendered"/>
+            <TextBlock Name="totalVirtualizedItems" />
+        </StackPanel>
+        
+        <!--The count of visual element populated in the list-->
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <TextBlock Text="No Visual elements rendered"/>
+            <TextBlock Name="totalVirtualizedItemsForTree" />
+        </StackPanel>
+    </Grid>
+
+    </DockPanel>
+</Window>

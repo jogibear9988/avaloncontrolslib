@@ -1,0 +1,93 @@
+﻿<Window x:Class="TestApplication.ListViewSorting"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://schemas.AvalonControls/AvalonControlsLibrary/Controls"
+    xmlns:local="clr-namespace:TestApplication"
+    xmlns:core="clr-namespace:AC.AvalonControlsLibrary.Core;assembly=AvalonControlsLibrary"
+    Title="ListViewSorting"
+        xmlns:current="clr-namespace:TestApplication">
+    <Window.Resources>
+        <!--styles for sorting-->
+        <DataTemplate x:Key="HeaderTemplateArrowUp">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding}"/>
+                <Path x:Name="arrow" StrokeThickness = "1" Fill = "Gray" Data = "M 5,10 L 15,10 L 10,5 L 5,10"/>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="HeaderTemplateArrowDown">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding}"/>
+                <Path x:Name="arrow" StrokeThickness = "1" Fill = "Gray" Data="M 5,5 L 10,10 L 15,5 L 5,5"/>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="HeaderTemplateTransparent">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding}"/>
+                <Path x:Name="arrow" StrokeThickness="1" Fill="Transparent" Data="M 5,5 L 10,10 L 15,5 L 5,5"/>
+            </DockPanel>
+        </DataTemplate>
+
+        <!--Sort handler that sorts the views-->
+        <core:GridViewSortHandler x:Key="sortHandler" 
+                                  ColumnHeaderSortedAscendingTemplate="HeaderTemplateArrowUp"
+                                  ColumnHeaderSortedDescendingTemplate="HeaderTemplateArrowDown"
+                                  ColumnHeaderNotSortedTemplate="HeaderTemplateTransparent" />
+        
+        <!--Custom comparer for the person object-->
+        <local:PersonComparer x:Key="personComparer"/>
+        
+        <!--Custom comaparer that use reflection to compare objects-->
+        <core:DefaultListViewComparer UseSimpleBinding="True" x:Key="defaultComparer"/>
+        
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+
+        <TextBlock DockPanel.Dock="Top">
+            <current:BrowserLink NavigateUri="http://marlongrech.wordpress.com/2007/09/12/listview-sorting/">For more info click here</current:BrowserLink>
+        </TextBlock>
+        
+        <StackPanel>
+            <TextBlock Text="Listview with sorting without using custom comparers"/>
+        <ListView core:GridViewSortHandler.GridViewSortHandler="{StaticResource sortHandler}" Name="listView1" Height="100">
+            <ListView.View>
+                <GridView>
+                    <controls:SortableGridViewColumn Header="Name" SortPropertyName="Name" DisplayMemberBinding="{Binding Path=Name}" />
+                    <controls:SortableGridViewColumn Header="Surame" SortPropertyName="Surname" DisplayMemberBinding="{Binding Path=Surname}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <TextBlock Text="Listview with sorting using PersonComparer." Margin="0,5,0,0"/>
+        <ListView core:GridViewSortHandler.GridViewSortHandler="{StaticResource sortHandler}" 
+                  core:GridViewSortHandler.CustomComparer="{StaticResource personComparer}"
+                  Height="100"
+                  Name="listView2">
+            <ListView.View>
+                <GridView>
+                    <controls:SortableGridViewColumn Header="Name" SortPropertyName="Name" DisplayMemberBinding="{Binding Path=Name}" />
+                    <controls:SortableGridViewColumn Header="Surame" SortPropertyName="Surname" DisplayMemberBinding="{Binding Path=Surname}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+        <TextBlock Text="Listview with sorting using the DefaultComparer." Margin="0,5,0,0"/>
+        <ListView core:GridViewSortHandler.GridViewSortHandler="{StaticResource sortHandler}" 
+                  core:GridViewSortHandler.CustomComparer="{StaticResource defaultComparer}"
+                  Height="100"
+                  Name="listView3">
+            <ListView.View>
+                <GridView>
+                    <controls:SortableGridViewColumn Header="Name" SortPropertyName="Name" DisplayMemberBinding="{Binding Path=Name}" />
+                    <controls:SortableGridViewColumn Header="Surame" SortPropertyName="Surname" DisplayMemberBinding="{Binding Path=Surname}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Content="Load bulk records to test performance of sorting" Margin="0,5,0,0" Click="BulkLoadClick"/>
+        
+        <TextBlock Text="Use the Load bulk button to stress test the sorting and see which one is faster (i.e the custom sort one)"/>
+    </StackPanel>
+
+    </DockPanel>
+</Window>

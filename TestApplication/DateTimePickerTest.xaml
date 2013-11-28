@@ -1,0 +1,31 @@
+﻿<Window x:Class="TestApplication.DateTimePickerTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="http://schemas.AvalonControls/AvalonControlsLibrary/Controls"
+    xmlns:current="clr-namespace:TestApplication"
+    Title="DateTimePickerTest" Height="300" Width="600">
+    <DockPanel LastChildFill="True">
+
+         <TextBlock DockPanel.Dock="Top">
+            <current:BrowserLink NavigateUri="http://marlongrech.wordpress.com/2008/02/06/wpf-date-time-picker/">For more info click here</current:BrowserLink>
+         </TextBlock>
+         
+		 <Grid Margin="10,10,0,0">
+			<Grid.RowDefinitions>        
+				<RowDefinition Height="50"/>
+				<RowDefinition Height="50"/>
+				<RowDefinition Height="50"/>
+				<RowDefinition Height="20"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			
+			<TextBlock Text="Date Time Picker Control" FontWeight="Bold"/>
+			
+			<local:DateTimePicker x:Name="dateTimePicker" Grid.Row="1" Width="320" Height="30"/>
+			
+			<TextBlock Text="Date Time Selected" Grid.Row="3" FontWeight="Bold"/>
+			<TextBlock Text="{Binding ElementName=dateTimePicker, Path=DateTimeSelected}" Grid.Row="4"/>
+			
+		</Grid>
+    </DockPanel>
+</Window>

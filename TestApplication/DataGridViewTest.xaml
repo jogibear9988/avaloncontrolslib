@@ -1,0 +1,78 @@
+﻿<Window x:Class="TestApplication.DataGridViewTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://schemas.AvalonControls/AvalonControlsLibrary/Controls"
+    xmlns:core="clr-namespace:AC.AvalonControlsLibrary.Core;assembly=AvalonControlsLibrary"
+    Title="DataGridViewTest" Height="800" Width="800"
+    xmlns:current="clr-namespace:TestApplication">
+    
+    <Window.Resources>
+
+        <!--styles for sorting-->
+        <DataTemplate x:Key="HeaderTemplateArrowUp">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding}"/>
+                <Path x:Name="arrow" StrokeThickness = "1" Fill = "Gray" Data = "M 5,10 L 15,10 L 10,5 L 5,10"/>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="HeaderTemplateArrowDown">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding}"/>
+                <Path x:Name="arrow" StrokeThickness = "1" Fill = "Gray" Data="M 5,5 L 10,10 L 15,5 L 5,5"/>
+            </DockPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="HeaderTemplateTransparent">
+            <DockPanel>
+                <TextBlock HorizontalAlignment="Center" Text="{Binding}"/>
+                <Path x:Name="arrow" StrokeThickness="1" Fill="Transparent" Data="M 5,5 L 10,10 L 15,5 L 5,5"/>
+            </DockPanel>
+        </DataTemplate>
+
+        <!--Sort handler that sorts the views-->
+        <core:GridViewSortHandler x:Key="sortHandler" 
+                                  ColumnHeaderSortedAscendingTemplate="HeaderTemplateArrowUp"
+                                  ColumnHeaderSortedDescendingTemplate="HeaderTemplateArrowDown"
+                                  ColumnHeaderNotSortedTemplate="HeaderTemplateTransparent" />
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+
+        <TextBlock DockPanel.Dock="Top">
+            <current:BrowserLink NavigateUri="http://marlongrech.wordpress.com/2007/09/01/listview-with-auto-generation-of-column-enable-disable-columns/">For more info click here</current:BrowserLink>
+        </TextBlock>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+
+            <controls:DataGridView core:GridViewSortHandler.GridViewSortHandler="{StaticResource sortHandler}" Grid.ColumnSpan="2" Grid.Row="0" x:Name="dataGridView1" />
+
+            <controls:DataGridView core:GridViewSortHandler.GridViewSortHandler="{StaticResource sortHandler}" Grid.Row="1" Grid.Column="1" x:Name="dataGridView2" />
+
+            <StackPanel Grid.Row="1" Grid.Column="0">
+                <TextBlock Text="Column List" FontWeight="Bold" Margin="2,0,0,10"/>
+            <!--Enable disable of columns for the DataGridView-->
+            <ItemsControl ItemsSource="{Binding ElementName=dataGridView2, Path=View.Columns}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding Path=IsEnabled, Mode=TwoWay}" Content="{Binding Path=Header}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+            <TextBlock TextWrapping="Wrap" Grid.Row="2" Grid.ColumnSpan="2"
+                   Text="The first data grid view is showing objects that do not have the attribute DataGridViewPropertyDescriptor. On the other hand the second data grid view uses these feature. You can even display properties that expose a collection by using the CollectionBehaviour (demo of this in the column subjects).
+                   This control also support enabling and disabling of columns this is a feature that the standard listview does not support... Coming up, the data grid view will also support sorting on multiple columns (+ using custom sort not sort descriptions...)
+                   If you have any comments feel free to send at marlongrech.wordpress.com"/>
+    </Grid>
+
+    </DockPanel>
+</Window>

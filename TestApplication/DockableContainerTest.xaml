@@ -1,0 +1,118 @@
+﻿<Window x:Class="TestApplication.DockableContainerTest"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="http://schemas.AvalonControls/AvalonControlsLibrary/Controls"
+    xmlns:current="clr-namespace:TestApplication"
+    Title="Dockable Container" Height="600" Width="600">
+    
+    <Window.Resources>
+		<DataTemplate x:Key="HeaderTemplate">
+			<Border BorderThickness="2" CornerRadius="5 5 0 0">
+				<ContentPresenter Content="{Binding}"/>
+			</Border>
+		</DataTemplate>
+		
+		<DataTemplate x:Key="BodyTemplate">
+			<Border BorderThickness="2" CornerRadius="5" >
+				<ContentPresenter Content="{Binding}"/>
+			</Border>
+		</DataTemplate>
+    </Window.Resources>
+    
+    <local:DockableContainer Background="#FF333333">
+		
+		<!-- You can use the DockableControl to dock a control. this control handles the docking and undocking-->
+		<local:DockableControl local:DockableContainer.Dock="Left" 
+			Background="#FF808080"
+			HeaderTemplate="{StaticResource HeaderTemplate}" Header="Title" 
+			ContentTemplate="{StaticResource BodyTemplate}">
+			<local:DockableControl.Content>
+				<ListBox>
+					<TextBlock Text="Sample Data"/>
+					<TextBlock Text="Sample Data"/>
+					<TextBlock Text="Sample Data"/>
+					<TextBlock Text="Sample Data"/>
+					<TextBlock Text="Sample Data"/>
+				</ListBox>
+			</local:DockableControl.Content>
+		</local:DockableControl>
+		
+		<local:DockableControl local:DockableContainer.Dock="Left" Margin="0,10,0,0"
+			Background="#FF808080" 
+			HeaderTemplate="{StaticResource HeaderTemplate}" Header="Other Title" 
+			ContentTemplate="{StaticResource BodyTemplate}">
+			<local:DockableControl.Content>
+				<Grid Background="White">
+					<TextBlock Text="Some other stuff"/>
+				</Grid>
+			</local:DockableControl.Content>
+		</local:DockableControl>
+		
+		<local:DockableControl local:DockableContainer.Dock="Top" Margin="0,0,0,5"
+			Background="#FF808080" 
+			HeaderTemplate="{StaticResource HeaderTemplate}" Header="Other Title" 
+			ContentTemplate="{StaticResource BodyTemplate}">
+			<local:DockableControl.Content>
+				<Grid Background="White">
+					<TextBlock DockPanel.Dock="Top">
+						<current:BrowserLink NavigateUri="http://marlongrech.wordpress.com/2008/01/29/create-blend-like-uis-using-docky/">For more info click here</current:BrowserLink>
+					</TextBlock>
+				</Grid>
+			</local:DockableControl.Content>
+		</local:DockableControl>
+		
+		<local:DockableControl local:DockableContainer.Dock="Bottom" Margin="0,5,0,0"
+			Background="#FF808080" 
+			HeaderTemplate="{StaticResource HeaderTemplate}" Header="Other Title" 
+			ContentTemplate="{StaticResource BodyTemplate}">
+			<local:DockableControl.Content>
+				<Grid Background="White">
+					<TextBlock Text="Some other stuff"/>
+				</Grid>
+			</local:DockableControl.Content>
+		</local:DockableControl>
+		
+		<!-- You can can also dock any other type of control but you must invoke the Dock and Undock command-->
+		<Grid local:DockableContainer.Dock="Right" Background="White" Width="150">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="2*"/>
+				<RowDefinition Height="6*"/>
+				<RowDefinition Height="2*"/>
+			</Grid.RowDefinitions>
+			
+			<!--Set the ElementForDragging property to what control should be dragged-->
+			<WrapPanel >
+				<TextBlock Text="Header"/>
+				<!--You must pass the instance of the element that is docked as parameter for this command. In this case it is the Grid-->
+				<Button Content="Dock/UnDock" 
+					Command="local:DockableContainer.ToggleDockChild" 
+					CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" />
+			</WrapPanel>
+			
+			<StackPanel Grid.Row="1">
+				<TextBlock TextWrapping="Wrap"  Text="This is a non Dockable Control yet it is still dockable :) You can use any control and dock it"/>
+			</StackPanel>
+			
+			<Border Background="Pink" local:DockableContainer.ElementForDragging="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+				Width="100" Height="50" Grid.Row="2">
+			</Border>
+			
+		</Grid>
+		
+		
+		<!--If you do not set the Dock property the element will be displayed in the body of the dockable container -->
+		<Grid >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="2*"/>
+				<RowDefinition Height="8*"/>
+			</Grid.RowDefinitions>
+			
+			<TextBlock Text="Cool, this control ROCKS!!! :) " Foreground="White" />
+			
+			<TextBlock TextWrapping="Wrap" Grid.Row="1" Foreground="White"
+				Text="la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la la " />
+			
+		</Grid>
+			
+	</local:DockableContainer>
+</Window>

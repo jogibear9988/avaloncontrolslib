@@ -1,0 +1,33 @@
+﻿<Window x:Class="TestApplication.MaskedTextBoxTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:AC.AvalonControlsLibrary.Controls;assembly=AvalonControlsLibrary"
+    Title="MaskedTextBoxTest" Height="300" Width="300"
+    xmlns:current="clr-namespace:TestApplication">
+    <DockPanel LastChildFill="True">
+
+        <TextBlock DockPanel.Dock="Top">
+            <current:BrowserLink NavigateUri="http://marlongrech.wordpress.com/2007/10/28/masked-textbox/">For more info click here</current:BrowserLink>
+        </TextBlock>
+
+        <StackPanel>
+
+            <WrapPanel>
+                <TextBlock Width="100" Text="Date mask"/>
+            <Controls:MaskedTextBox Mask="00/00/0000" Width="100"/>
+        </WrapPanel>
+
+            <WrapPanel>
+                <TextBlock Width="100" Text="Time mask"/>
+            <Controls:MaskedTextBox Mask="90:00" Width="100"/>
+        </WrapPanel>
+
+            <WrapPanel>
+                <TextBlock Width="100" Text="Phone mask"/>
+            <Controls:MaskedTextBox Mask="(999) 000-0000" Width="100"/>
+        </WrapPanel>
+
+        </StackPanel>
+
+    </DockPanel>
+</Window>

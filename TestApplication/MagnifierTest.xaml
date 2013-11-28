@@ -1,0 +1,26 @@
+﻿<Window x:Class="TestApplication.MagnifierTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local="http://schemas.AvalonControls/AvalonControlsLibrary/Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Magnifier"
+        xmlns:current="clr-namespace:TestApplication">
+    <DockPanel LastChildFill="True">
+
+        <TextBlock DockPanel.Dock="Top">
+            <current:BrowserLink NavigateUri="http://marlongrech.wordpress.com/2007/09/06/wpf-range-slider-control/">For more info click here</current:BrowserLink>
+        </TextBlock>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Name="displayValue" Grid.Row="0"/>
+        <Rectangle Width="20" Fill="Red" Height="20" Name="displayRect"/>
+        
+        <local:Magnifier Minimum="0" Maximum="1" Grid.Row="1" Name="magnifier"/>
+    </Grid>
+
+    </DockPanel>
+</Window>

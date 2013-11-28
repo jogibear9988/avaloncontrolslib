@@ -1,0 +1,74 @@
+﻿<Window x:Class="TestApplication.TimePickerTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:local="http://schemas.AvalonControls/AvalonControlsLibrary/Controls"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="TimePickerTest" Height="400" Width="500"
+    xmlns:current="clr-namespace:TestApplication">
+    <DockPanel LastChildFill="True">
+
+        <TextBlock DockPanel.Dock="Top">
+            <current:BrowserLink NavigateUri="http://marlongrech.wordpress.com/2007/11/18/time-picker/">For more info click here</current:BrowserLink>
+        </TextBlock>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" DataContext="{Binding ElementName=timePicker}">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Selected Hour"/>
+            <TextBlock Text="{Binding SelectedHour}" Grid.Column="1"/>
+            
+            <TextBlock Text="Selected Minute" Grid.Row="1"/>
+            <TextBlock Text="{Binding SelectedMinute}" Grid.Row="1" Grid.Column="1"/>
+            
+            <TextBlock Text="Selected Second" Grid.Row="2"/>
+            <TextBlock Text="{Binding SelectedSecond}" Grid.Row="2" Grid.Column="1"/>
+            
+            <TextBlock Text="Selected Time" Grid.Row="3"/>
+            <TextBlock Text="{Binding SelectedTime}" Grid.Row="3" Grid.Column="1"/>
+            
+        </Grid>
+
+            <!--You can set the following properties to the default control template of the timepicker control
+            Foreground   
+            Background
+            BorderThickness
+            BorderBrush
+            FontWeight
+            FontFamily
+            FontStyle
+            FontStretch
+            FontSize
+        -->
+            <local:TimePicker Name="timePicker" Grid.Row="1" 
+                          BorderBrush="Silver" BorderThickness="1" 
+                          FontFamily="Verdana" FontSize="12" SelectedHour="11" 
+                          SelectedMinute="20" SelectedSecond="30" MinTime="{Binding ElementName=timePicker2, Path=SelectedTime}"/>
+
+            <ScrollViewer Grid.Row="2">
+                <TextBlock TextWrapping="Wrap">
+                <TextBlock.Text>
+                    To change the time you can press the up/down keys or click the up/down buttons.
+                    You can also edit the time by hand by entering the time manually...
+                </TextBlock.Text>
+            </TextBlock>
+            </ScrollViewer>
+          
+        </Grid>
+
+    </DockPanel>
+</Window>
