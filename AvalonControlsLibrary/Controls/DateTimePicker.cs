@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -205,10 +207,10 @@ namespace AC.AvalonControlsLibrary.Controls
             if (datePicker == null) datePicker = new DatePicker();
             timePicker = (TimePicker)GetTemplateChild("PART_TimePicker");
             if (timePicker == null) timePicker = new TimePicker();
-            datePicker.SelectedDateChanged += delegate { SetCurrentDateTime(); };
-            timePicker.SelectedTimeChanged += delegate { SetCurrentDateTime(); };
             datePicker.CurrentlySelectedDate = DateTimeSelected;
             timePicker.SelectedTime = DateTimeSelected.TimeOfDay;
+            datePicker.SelectedDateChanged += delegate { SetCurrentDateTime(); };
+            timePicker.SelectedTimeChanged += delegate { SetCurrentDateTime(); };
 
             //snyc the min and max date for datepicker
             Binding minDateBinding = new Binding("MinDate");
