@@ -24,7 +24,7 @@ namespace AC.AvalonControlsLibrary.Core
             "August",
             "September",
             "October",
-            "Novemeber",
+            "November",
             "December"
         };
 
